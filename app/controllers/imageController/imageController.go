@@ -49,7 +49,7 @@ func GetImage(c *gin.Context) {
 		return
 	}
 	var total int64
-	if err := database.DB.Model(&models.NameMap{}).Count(&total).Error; err != nil {
+	if err := database.DB.Model(&models.NameMap{Type: "image/webp"}).Count(&total).Error; err != nil {
 		_ = c.AbortWithError(200, apiException.ServerError)
 		return
 	}
@@ -171,7 +171,7 @@ func DeleteImg(c *gin.Context) {
 		_ = c.AbortWithError(200, apiException.ServerError)
 		return
 	}
-	err = nameMapServices.DeleteImage(&image)
+	err = nameMapServices.DeleteFile(&image)
 	if err != nil {
 		log.Println(err)
 		_ = c.AbortWithError(400, apiException.ServerError)

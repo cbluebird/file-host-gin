@@ -11,5 +11,6 @@ func fileRouterInit(r *gin.RouterGroup) {
 	{
 		fun.GET("/download/:file_name", fileControllers.GetFile)
 		fun.POST("/upload", fileControllers.UploadFile)
+		fun.GET("/get", fileControllers.GetFileList)
 	}
 }

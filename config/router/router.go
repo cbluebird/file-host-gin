@@ -15,5 +15,4 @@ func Init(r *gin.Engine) {
 		imageRouterInit(api)
 	}
 	r.Static("/img", "img")
-	r.Static("/public", "public")
 }

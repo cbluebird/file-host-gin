@@ -50,7 +50,7 @@ func FileDownloadCountIncrement(uuid string) error {
 	}).Update("download_count", gorm.Expr("download_count + ?", 1)).Error
 }
 
-func DeleteImage(image *models.NameMap) error {
+func DeleteFile(image *models.NameMap) error {
 	result := database.DB.Delete(image)
 	return result.Error
 }
