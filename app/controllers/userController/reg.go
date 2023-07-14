@@ -6,6 +6,7 @@ import (
 	"image-host/app/services/sessionServices"
 	"image-host/app/services/userServices"
 	"image-host/app/utils"
+	"image-host/config/config"
 	"image-host/config/wechat"
 	"strings"
 )
@@ -13,6 +14,7 @@ import (
 type createStudentUserForm struct {
 	Username string `json:"username"  binding:"required"`
 	Password string `json:"password"  binding:"required"`
+	Key      string `json:"key" binding:"required"`
 }
 type createStudentUserWechatForm struct {
 	Username string `json:"username"  binding:"required"`
@@ -57,6 +59,10 @@ func CreateStudentUser(c *gin.Context) {
 	errBind := c.ShouldBindJSON(&postForm)
 	if errBind != nil {
 		_ = c.AbortWithError(200, apiException.ParamError)
+		return
+	}
+	if postForm.Key != config.Config.GetString("key") {
+		_ = c.AbortWithError(200, apiException.NotAdmin)
 		return
 	}
 	postForm.Username = strings.ToUpper(postForm.Username)
